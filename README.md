@@ -49,6 +49,31 @@ The number of cells in the grid is calculated by multiplying the column count by
 ```py
 NumberOfMines = 25 # This will be the number of mines in the grid
 #(Must be 1+ and not be more than the maximum space on the Grid generation
+# (For example a 10x12 grid would have a maximum of 120 cells))
+
+MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
+```
+
+###### Output grid:
+
+```py
+>>>print(MyNewMinesweeperGrid)
+[["M","1"," "," "," "],
+ ["1","2","1","1"," "],
+ [" ","1","M","2","1"],
+ ["1","2","3","M","1"],
+ ["1","M","2","1","1"]]
+ 
+>>>for row in MyNewMinesweeperGrid:
+...    print(row)
+...
+["M","1"," "," "," "]
+["1","2","1","1"," "]
+[" ","1","M","2","1"]
+["1","2","3","M","1"]
+["1","M","2","1","1"]
+
+>>>
 ```
 
 ###### Links:
