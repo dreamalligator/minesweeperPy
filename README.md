@@ -49,3 +49,9 @@ The number of cells in the grid is calculated by multiplying the column count by
 ```py
 NumberOfMines = 25 # This will be the number of mines in the grid
 #(Must be 1+ and not be more than the maximum space on the Grid generation
+```
+
+###### Links:
+
+* [GitHub repository page](https://github.com/stshrewsburyDev/minesweeperPy)
+* [The stshrewsburyDev official site](https://stshrewsburydev.github.io/official_site/)
