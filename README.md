@@ -9,14 +9,13 @@ Screenshots:
 
 ![RawTerminalUsage](https://stshrewsburydev.github.io/official_site/API/ProjectScreenshots/minesweeperPy/minesweeperPy0001.png "Raw terminal usage")
 
+ChangeLogs:
+-----------
+
+* Patched error that was preventing the module from being imported on Linux based systems
+
 Installation:
 -------------
-
-###### Install with pip
-
-```
-pip install minesweeperPy
-```
 
 ###### Install from source:
 
