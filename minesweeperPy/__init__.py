@@ -22,9 +22,9 @@ class MineGen():
         :param GridSizeY: integer above 4
         """
         if GridSizeX <= 4 or GridSizeY <= 4:
-            raise ValueError(f"""Expected:
-        - GridSizeX = 5+ got {GridSizeX}
-        - GridSizeY = 5+ got {GridSizeY}""")
+            raise ValueError("""Expected:
+        - GridSizeX = 5+ got {0}
+        - GridSizeY = 5+ got {1}""".format(GridSizeX, GridSizeY))
         self.GridSizeX = GridSizeX
         self.GridSizeY = GridSizeY
 
@@ -48,11 +48,11 @@ class MineGen():
         are the in game numbers for the mine count
         """
         if MineCount <= 0:
-            raise ValueError(f"""Expected:
-                    - MineCount = 1+ got {MineCount}""")
+            raise ValueError("""Expected:
+                    - MineCount = 1+ got {0}""".format(MineCount))
         if MineCount >= (self.GridSizeX * self.GridSizeY)+1:
             raise ValueError("""Not enough space on the grid for that many mines:
-        - Grid space = {}""".format((self.GridSizeX * self.GridSizeY)))
+        - Grid space = {0}""".format((self.GridSizeX * self.GridSizeY)))
 
         Grid = []
 
