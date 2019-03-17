@@ -17,6 +17,12 @@ ChangeLogs:
 Installation:
 -------------
 
+###### Install with pip:
+
+```
+pip install minesweeperPy
+```
+
 ###### Install from source:
 
 ```
