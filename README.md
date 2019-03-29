@@ -108,4 +108,5 @@ MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
 ###### Links:
 
 * [GitHub repository page](https://github.com/stshrewsburyDev/minesweeperPy)
+* [The module PyPi site](https://pypi.org/project/minesweeperPy/)
 * [The stshrewsburyDev official site](https://stshrewsburydev.github.io/official_site/)
