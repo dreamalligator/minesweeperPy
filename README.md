@@ -12,7 +12,9 @@ Screenshots:
 ChangeLogs:
 -----------
 
-* Patched error that was preventing the module from being imported on Linux based systems
+Version 1.2
+
+* Added ``GridInfo()`` function
 
 Installation:
 -------------
@@ -83,6 +85,22 @@ MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
 [" ","1","M","2","1"]
 ["1","2","3","M","1"]
 ["1","M","2","1","1"]
+
+>>>
+```
+
+###### Get grid information:
+
+```py
+>>>minesweeperPy.GridInfo(MyNewMinesweeperGrid)
+{
+  'GridColumns': 5,
+  'GridRows': 5,
+  'MineCount': 4,
+  'NonMineCells': 21,
+  'EmptyCells': 5, 
+  'NumberedCells': 16
+}
 
 >>>
 ```
