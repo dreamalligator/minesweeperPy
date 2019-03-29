@@ -5,6 +5,11 @@ Made by Steven Shrewsbury Dev. (AKA: stshrewsburyDev)
 
 import random
 
+"""
+A list of all the possible cells that can be used in the generator
+"""
+CellPossibilities = ["M", " ", "1", "2", "3", "4", "5", "6", "7", "8"]
+
 class MineGen():
     """
     The main class making up the generator.
@@ -99,3 +104,39 @@ class MineGen():
             Grid.append(RowContents)
 
         return Grid
+
+
+def GridInfo(Grid=None):
+    """
+    Shows the information of the grid entered (Mine total, Grid size etc...)
+    :param Grid: 2 dimensional list generated via MineGen.GenerateGrid()
+    :return: JSON library of grid information
+    """
+    if Grid is None or type(Grid) is not list:
+        raise TypeError("""Expected:
+    - Grid = 2D list type got {0}""".format(Grid))
+
+    GridInformation = {
+        "GridColumns": len(Grid[0]),
+        "GridRows": len(Grid),
+        "MineCount": 0,
+        "NonMineCells": 0,
+        "EmptyCells": 0,
+        "NumberedCells": 0
+    }
+
+    for row in Grid:
+        for cell in row:
+            if cell not in CellPossibilities:
+                raise TypeError("""Unknown type of cell {0}, expected one of {1}""".format(cell, CellPossibilities))
+            if cell == "M":
+                GridInformation["MineCount"] += 1
+            elif cell == " ":
+                GridInformation["NonMineCells"] += 1
+                GridInformation["EmptyCells"] += 1
+            else:
+                GridInformation["NonMineCells"] += 1
+                GridInformation["NumberedCells"] += 1
+
+    return GridInformation
+

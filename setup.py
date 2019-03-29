@@ -5,7 +5,7 @@ with open("README.md", "r") as README_file:
 
 setup(
     name='minesweeperPy',
-    version='1.1',
+    version='1.2',
     description='A Python 3 minesweeper generator module',
     license="MIT",
     long_description=long_description,
