@@ -1,5 +1,5 @@
-The minesweeperPy module for Python 3.6
-=======================================
+The minesweeperPy module for Python 3
+=====================================
 
 #### Made by Steven Shrewsbury Dev. (AKA: stshrewsburyDev)
 
