@@ -12,9 +12,9 @@ Screenshots:
 ChangeLogs:
 -----------
 
-Version 1.2
+Version 1.3
 
-* Added ``GridInfo()`` function
+* Added ``BlankIdentifier`` to ``MineGen()`` so you can set custom blank cell identifiers
 
 Installation:
 -------------
@@ -71,20 +71,24 @@ MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
 
 ```py
 >>>print(MyNewMinesweeperGrid)
-[["M","1"," "," "," "],
- ["1","2","1","1"," "],
- [" ","1","M","2","1"],
- ["1","2","3","M","1"],
- ["1","M","2","1","1"]]
+{
+  'grid': [['2', 'M', '1', '1', 'M'],
+           ['M', '2', '1', '1', '1'],
+           ['2', '2', ' ', ' ', ' '],
+           ['M', '2', ' ', ' ', ' '],
+           ['M', '2', ' ', ' ', ' ']
+           ],
+  'BlankIdentifier': ' '
+}
  
->>>for row in MyNewMinesweeperGrid:
+>>>for row in MyNewMinesweeperGrid["grid"]:
 ...    print(row)
 ...
-["M","1"," "," "," "]
-["1","2","1","1"," "]
-[" ","1","M","2","1"]
-["1","2","3","M","1"]
-["1","M","2","1","1"]
+['2', 'M', '1', '1', 'M']
+['M', '2', '1', '1', '1']
+['2', '2', ' ', ' ', ' ']
+['M', '2', ' ', ' ', ' ']
+['M', '2', ' ', ' ', ' ']
 
 >>>
 ```
@@ -96,13 +100,33 @@ MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
 {
   'GridColumns': 5,
   'GridRows': 5,
-  'MineCount': 4,
-  'NonMineCells': 21,
-  'EmptyCells': 5, 
-  'NumberedCells': 16
+  'MineCount': 5,
+  'NonMineCells': 20,
+  'EmptyCells': 9, 
+  'NumberedCells': 11
 }
 
 >>>
+```
+
+###### Generate a new grid generation with a custom blank identifer
+```py
+>>>columns = 12 # This will be the amount of columns in the grid (Must be 5+)
+>>>rows = 12 # This will be the amount of rows in the grid (Must be 5+)
+>>>customIdentifier = "/" # This will be the cell identifier in the grid (Must be a string value)
+>>>NumberOfMines = 25 # This will be the number of mines in the grid
+
+>>>MyNewGridGeneration = minesweeperPy.MineGen(columns, rows, customIdentifier)
+
+>>>MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
+
+>>>print(MyNewMineSweeperGrid["grid"])
+[['2', 'M', '1', '1', 'M'],
+ ['M', '2', '1', '1', '1'],
+ ['2', '2', '/', '/', '/'],
+ ['M', '2', '/', '/', '/'],
+ ['M', '2', '/', '/', '/']
+ ]
 ```
 
 ###### Links:

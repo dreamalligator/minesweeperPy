@@ -5,10 +5,6 @@ Made by Steven Shrewsbury Dev. (AKA: stshrewsburyDev)
 
 import random
 
-"""
-A list of all the possible cells that can be used in the generator
-"""
-CellPossibilities = ["M", " ", "1", "2", "3", "4", "5", "6", "7", "8"]
 
 class MineGen():
     """
@@ -20,7 +16,7 @@ class MineGen():
         - MyGridGeneration.GridSizeX
         - MyGridGeneration.GridSizeY
     """
-    def __init__(self, GridSizeX: int=0, GridSizeY: int=0):
+    def __init__(self, GridSizeX: int=0, GridSizeY: int=0, BlankIdentifier: str=" "):
         """
         Makes the main generator using: MyGridGeneration = minesweeperPy.MineGen(GridSizeX, GridSizeY)
         :param GridSizeX: integer above 4
@@ -32,6 +28,8 @@ class MineGen():
         - GridSizeY = 5+ got {1}""".format(GridSizeX, GridSizeY))
         self.GridSizeX = GridSizeX
         self.GridSizeY = GridSizeY
+        self.BlankIdentifier = BlankIdentifier
+        self.CellPossibilities = ["M", self.BlankIdentifier, "1", "2", "3", "4", "5", "6", "7", "8"]
 
     def GenerateGrid(self, MineCount: int=0):
         """
@@ -41,7 +39,7 @@ class MineGen():
         Uses MineCount to make the amount of mines onto the grid
 
         :param MineCount: integer above 0
-        :return: grid in the form of a 2D list
+        :return: json library with blank identifier and grid in the form of a 2D list
             eg: [
                 ["M","1"," "," "," "],
                 ["1","2","1","1"," "],
@@ -58,6 +56,8 @@ class MineGen():
         if MineCount >= (self.GridSizeX * self.GridSizeY)+1:
             raise ValueError("""Not enough space on the grid for that many mines:
         - Grid space = {0}""".format((self.GridSizeX * self.GridSizeY)))
+
+        ReturnOutput = {}
 
         Grid = []
 
@@ -98,23 +98,30 @@ class MineGen():
                     if [column-1, row+1] in TempMineLocations:
                         NearMineCount += 1
                     if NearMineCount == 0:
-                        RowContents.append(" ")
+                        RowContents.append(self.BlankIdentifier)
                     else:
                         RowContents.append(str(NearMineCount))
             Grid.append(RowContents)
 
-        return Grid
+        ReturnOutput["grid"] = Grid
+        ReturnOutput["BlankIdentifier"] = self.BlankIdentifier
+
+        return ReturnOutput
 
 
-def GridInfo(Grid=None):
+def GridInfo(GridInfo=None):
     """
     Shows the information of the grid entered (Mine total, Grid size etc...)
-    :param Grid: 2 dimensional list generated via MineGen.GenerateGrid()
+    :param GridInfo: JSON library generated via MineGen.GenerateGrid()
     :return: JSON library of grid information
     """
-    if Grid is None or type(Grid) is not list:
+    try:
+        BlankIdentifier = GridInfo["BlankIdentifier"]
+        Grid = GridInfo["grid"]
+        CellPossibilities = ["M", BlankIdentifier, "1", "2", "3", "4", "5", "6", "7", "8"]
+    except:
         raise TypeError("""Expected:
-    - Grid = 2D list type got {0}""".format(Grid))
+            - GridInfo = json list, got {0}""".format(GridInfo))
 
     GridInformation = {
         "GridColumns": len(Grid[0]),
@@ -131,7 +138,7 @@ def GridInfo(Grid=None):
                 raise TypeError("""Unknown type of cell {0}, expected one of {1}""".format(cell, CellPossibilities))
             if cell == "M":
                 GridInformation["MineCount"] += 1
-            elif cell == " ":
+            elif cell == BlankIdentifier:
                 GridInformation["NonMineCells"] += 1
                 GridInformation["EmptyCells"] += 1
             else:
