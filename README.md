@@ -1,3 +1,5 @@
+![minesweeperPyLogo](https://stshrewsburydev.github.io/official_site/API/ProjectScreenshots/minesweeperPy/minesweeperPyLogo.png "minesweeperPy logo")
+
 The minesweeperPy module for Python 3
 =====================================
 
@@ -12,9 +14,12 @@ Screenshots:
 ChangeLogs:
 -----------
 
-Version 1.3
+Version 1.3 and 1.6
 
 * Added ``BlankIdentifier`` to ``MineGen()`` so you can set custom blank cell identifiers
+* Updated help information for the module
+
+Version 1.4 and 1.5 had some major problems so the new version is 1.6
 
 Installation:
 -------------
@@ -46,7 +51,7 @@ import minesweeperPy
 columns = 12 # This will be the amount of columns in the grid (Must be 5+)
 rows = 12 # This will be the amount of rows in the grid (Must be 5+)
 
-MyNewGridGeneration = minesweeperPy.MineGen(columns, rows)
+MyNewGridGenerator = minesweeperPy.MineGen(columns, rows)
 ```
 
 The number of cells in the grid is calculated by multiplying the column count by the row count:
@@ -64,7 +69,7 @@ NumberOfMines = 25 # This will be the number of mines in the grid
 #(Must be 1+ and not be more than the maximum space on the Grid generation
 # (For example a 10x12 grid would have a maximum of 120 cells))
 
-MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
+MyNewMinesweeperGrid = MyNewGridGenerator.GenerateGrid(NumberOfMines)
 ```
 
 ###### Output grid:
@@ -116,9 +121,9 @@ MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
 >>>customIdentifier = "/" # This will be the cell identifier in the grid (Must be a string value)
 >>>NumberOfMines = 25 # This will be the number of mines in the grid
 
->>>MyNewGridGeneration = minesweeperPy.MineGen(columns, rows, customIdentifier)
+>>>MyNewGridGenerator = minesweeperPy.MineGen(columns, rows, customIdentifier)
 
->>>MyNewMinesweeperGrid = MyNewGridGeneration.GenerateGrid(NumberOfMines)
+>>>MyNewMinesweeperGrid = MyNewGridGenerator.GenerateGrid(NumberOfMines)
 
 >>>print(MyNewMineSweeperGrid["grid"])
 [['2', 'M', '1', '1', 'M'],

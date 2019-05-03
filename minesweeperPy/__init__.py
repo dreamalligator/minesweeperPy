@@ -10,17 +10,19 @@ class MineGen():
     """
     The main class making up the generator.
 
-    Called by setting a variable for a generation type using: MyGridGeneration = minesweeperPy.MineGen(GridSizeX, GridSizeY)
+    Called by setting a variable for a generation type using: MyGridGenerator = minesweeperPy.MineGen(GridSizeX, GridSizeY, BlankIdentifier)
     Used bu using:
-        - MyGridGeneration.GenerateGrid(MineCount)
-        - MyGridGeneration.GridSizeX
-        - MyGridGeneration.GridSizeY
+        - MyGridGenerator.GenerateGrid(MineCount)
+        - MyGridGenerator.GridSizeX
+        - MyGridGenerator.GridSizeY
+        - MyGridGenerator.BlankIdentifier
     """
     def __init__(self, GridSizeX: int=0, GridSizeY: int=0, BlankIdentifier: str=" "):
         """
-        Makes the main generator using: MyGridGeneration = minesweeperPy.MineGen(GridSizeX, GridSizeY)
+        Makes the main generator using: MyGridGenerator = minesweeperPy.MineGen(GridSizeX, GridSizeY, BlankIdentifier)
         :param GridSizeX: integer above 4
         :param GridSizeY: integer above 4
+        :param BlankIdentifier: string
         """
         if GridSizeX <= 4 or GridSizeY <= 4:
             raise ValueError("""Expected:
@@ -40,13 +42,15 @@ class MineGen():
 
         :param MineCount: integer above 0
         :return: json library with blank identifier and grid in the form of a 2D list
-            eg: [
-                ["M","1"," "," "," "],
-                ["1","2","1","1"," "],
-                [" ","1","M","2","1"],
-                ["1","2","3","M","1"],
-                ["1","M","2","1","1"]
-                ]
+            eg: {
+                   "grid": [["M","1"," "," "," "],
+                            ["1","2","1","1"," "],
+                            [" ","1","M","2","1"],
+                            ["1","2","3","M","1"],
+                            ["1","M","2","1","1"]
+                            ],
+                   "BlankIdentifier": " "
+                }
         M indicating a mine and the numbers around are the numbers
         are the in game numbers for the mine count
         """
@@ -129,7 +133,8 @@ def GridInfo(GridInfo=None):
         "MineCount": 0,
         "NonMineCells": 0,
         "EmptyCells": 0,
-        "NumberedCells": 0
+        "NumberedCells": 0,
+        "BlankIdentifier": BlankIdentifier
     }
 
     for row in Grid:
