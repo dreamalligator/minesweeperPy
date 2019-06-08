@@ -9,17 +9,18 @@ The minesweeperPy module for Python 3
 Screenshots:
 ------------
 
-![RawTerminalUsage](https://stshrewsburydev.github.io/official_site/API/ProjectScreenshots/minesweeperPy/minesweeperPy0001.png "Raw terminal usage")
+![RawTerminalUsage](https://stshrewsburydev.github.io/official_site/API/ProjectScreenshots/minesweeperPy/minesweeperPy0002.png "Raw terminal usage")
 
 ChangeLogs:
 -----------
 
-Version 1.3 and 1.6
+Version 1.7
 
-* Added ``BlankIdentifier`` to ``MineGen()`` so you can set custom blank cell identifiers
-* Updated help information for the module
-
-Version 1.4 and 1.5 had some major problems so the new version is 1.6
+* The entire module has been rewritten with slightly cleaner code
+* Function and class names have been changed, use ``help(minesweeperPy)`` to see the new names
+* ``__version__`` ``__title__`` ``__author__`` ``__licence__`` ``__copyright__`` ``__URL__`` and ``__changeLogs__`` added to see more info on the module
+* As well as blank cell identifiers there are now mine cell identifiers
+* ``preGenerate()`` added to quickly generate a grid using one of the four built in presets
 
 Installation:
 -------------
@@ -28,6 +29,12 @@ Installation:
 
 ```
 pip install minesweeperPy
+```
+
+###### Update with pip
+
+```
+pip install minesweeperPy --upgrade
 ```
 
 ###### Install from source:
@@ -48,10 +55,10 @@ import minesweeperPy
 ###### Make a new grid generation setting:
 
 ```py
-columns = 12 # This will be the amount of columns in the grid (Must be 5+)
-rows = 12 # This will be the amount of rows in the grid (Must be 5+)
+columns = 5 # This will be the amount of columns in the grid (Must be 5+)
+rows = 5 # This will be the amount of rows in the grid (Must be 5+)
 
-MyNewGridGenerator = minesweeperPy.MineGen(columns, rows)
+myGridGen = minesweeperPy.mineGen(columns, rows)
 ```
 
 The number of cells in the grid is calculated by multiplying the column count by the row count:
@@ -65,17 +72,18 @@ The number of cells in the grid is calculated by multiplying the column count by
 ###### Generate a new grid:
 
 ```py
-NumberOfMines = 25 # This will be the number of mines in the grid
-#(Must be 1+ and not be more than the maximum space on the Grid generation
-# (For example a 10x12 grid would have a maximum of 120 cells))
+numOfMines = 5 # This will be the number of mines in the grid
+# Must be 0 or more
+# Cannot be more than the total number of cells on the grid
+#   eg: a 10x10 grid can have a max of 100 mines
 
-MyNewMinesweeperGrid = MyNewGridGenerator.GenerateGrid(NumberOfMines)
+myGrid = myGridGen.generateGrid(numOfMines)
 ```
 
 ###### Output grid:
 
 ```py
->>>print(MyNewMinesweeperGrid)
+>>>print(myGrid)
 {
   'grid': [['2', 'M', '1', '1', 'M'],
            ['M', '2', '1', '1', '1'],
@@ -83,10 +91,11 @@ MyNewMinesweeperGrid = MyNewGridGenerator.GenerateGrid(NumberOfMines)
            ['M', '2', ' ', ' ', ' '],
            ['M', '2', ' ', ' ', ' ']
            ],
-  'BlankIdentifier': ' '
+  'BlankIdentifier': ' ',
+  'mineIdentifier': 'M'
 }
  
->>>for row in MyNewMinesweeperGrid["grid"]:
+>>>for row in myGrid["grid"]:
 ...    print(row)
 ...
 ['2', 'M', '1', '1', 'M']
@@ -101,37 +110,60 @@ MyNewMinesweeperGrid = MyNewGridGenerator.GenerateGrid(NumberOfMines)
 ###### Get grid information:
 
 ```py
->>>minesweeperPy.GridInfo(MyNewMinesweeperGrid)
+>>>minesweeperPy.gridInfo(grid=myGrid["grid"],
+                          blankIdentifier=myGrid["blankIdentifier"],
+                          mineIdentifier=myGrid["mineIdentifier"])
 {
-  'GridColumns': 5,
-  'GridRows': 5,
-  'MineCount': 5,
-  'NonMineCells': 20,
-  'EmptyCells': 9, 
-  'NumberedCells': 11
+  'gridColumns': 5,
+  'gridRows': 5,
+  'mineCount': 5,
+  'nonMineCells': 20,
+  'emptyCells': 9,
+  'numberedCells': 11,
+  'NOTICE': 'If these results seem wrong re-run gridInfo() with the correct mine and blank cell identifiers'
 }
 
 >>>
 ```
 
-###### Generate a new grid generation with a custom blank identifer
+###### Generate a new grid generation with a custom blank and mine identifiers
 ```py
->>>columns = 12 # This will be the amount of columns in the grid (Must be 5+)
->>>rows = 12 # This will be the amount of rows in the grid (Must be 5+)
->>>customIdentifier = "/" # This will be the cell identifier in the grid (Must be a string value)
->>>NumberOfMines = 25 # This will be the number of mines in the grid
+>>>columns = 5 # This will be the amount of columns in the grid (Must be 5+)
+>>>rows = 5 # This will be the amount of rows in the grid (Must be 5+)
+>>>blankCustIdentifier = "/" # This will be the cell identifier for blank cells in the grid (Must be a string value and not a None type)
+>>>mineCustIdentifier = "%" # This will be the cell identifier for mine cells in the grid (Must be a string value and not a None type)
+>>>numOfMines = 5 # This will be the number of mines in the grid
 
->>>MyNewGridGenerator = minesweeperPy.MineGen(columns, rows, customIdentifier)
+>>>myGridGen = minesweeperPy.mineGen(columns, rows, blankCustIdentifier, mineCustIdentifier)
 
->>>MyNewMinesweeperGrid = MyNewGridGenerator.GenerateGrid(NumberOfMines)
+>>>myGrid = myGridGen.generateGrid(numOfMines)
 
->>>print(MyNewMineSweeperGrid["grid"])
-[['2', 'M', '1', '1', 'M'],
- ['M', '2', '1', '1', '1'],
- ['2', '2', '/', '/', '/'],
- ['M', '2', '/', '/', '/'],
- ['M', '2', '/', '/', '/']
- ]
+>>>print(myGrid["grid"])
+[['3', '%', '3', '1', '1'],
+ ['%', '%', '4', '%', '1'],
+ ['2', '3', '%', '2', '1'],
+ ['/', '1', '1', '1', '/'],
+ ['/', '/', '/', '/', '/']]
+```
+
+###### Generate a grid with a preset:
+Without custom identifiers
+```py
+level = "easy" # This can be "easy", "medium", "hard" or "expert"
+# This is not case sensitive so "eAsY" will still work
+
+myGrid = minesweeperPy.preGenerate(level=level)
+```
+
+With custom identifiers
+```py
+level = "medium" # This can be "easy", "medium", "hard" or "expert"
+blankCustIdentifier = "$" # This will be the identifier for blank cells
+mineCustIdentifier = "!" # This will be the identifier for mines
+
+myGrid = minesweeperPy.preGenerate(level=level,
+                                   blankIdentifier=blankCustIdentifier,
+                                   mineIdentifier=mineCustIdentifier)
 ```
 
 ###### Links:
