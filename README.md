@@ -14,13 +14,10 @@ Screenshots:
 ChangeLogs:
 -----------
 
-Version 1.7
+Version 1.8
 
-* The entire module has been rewritten with slightly cleaner code
-* Function and class names have been changed, use ``help(minesweeperPy)`` to see the new names
-* ``__version__`` ``__title__`` ``__author__`` ``__licence__`` ``__copyright__`` ``__URL__`` and ``__changeLogs__`` added to see more info on the module
-* As well as blank cell identifiers there are now mine cell identifiers
-* ``preGenerate()`` added to quickly generate a grid using one of the four built in presets
+* Error message names are now better to understand (uses custom Exceptions)
+* minesweeperPy.error added
 
 Installation:
 -------------

@@ -5,11 +5,11 @@ with open("READMEPyPi.txt", "r") as README_file:
 
 setup(
     name='minesweeperPy',
-    version='1.7',
+    version='1.8',
     description='A Python 3 minesweeper generator module',
-    license="MIT",
+    license='MIT',
     long_description=long_description,
-    author='stshrewsburyDev',
+    author='Steven Shrewsbury',
     author_email='',
     url="https://github.com/stshrewsburyDev/minesweeperPy",
     packages=["minesweeperPy"],

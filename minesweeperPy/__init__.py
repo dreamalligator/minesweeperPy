@@ -1,25 +1,23 @@
 """
-minesweeperPy 1.7
+minesweeperPy 1.8
 The minesweeper generator in Python 3
-Made by Steven Shrewsbury Dev. (AKA: stshrewsburyDev)
+Made by Steven Shrewsbury. (stshrewsburyDev)
 """
 
 import random
+import minesweeperPy.error
 
 
 __title__ = 'minesweeperPy'
-__author__ = 'stshrewsburyDev'
+__author__ = 'Steven Shrewsbury'
 __license__ = 'MIT'
-__copyright__ = 'Copyright (c) 2019 stshrewsburyDev'
-__version__ = '1.7'
+__copyright__ = 'Copyright (c) 2019 Steven Shrewsbury'
+__version__ = '1.8'
 __URL__ = "https://github.com/stshrewsburyDev/minesweeperPy"
 
 __changeLogs__ = """
- - The entire module has been rewritten with slightly cleaner code
- - Function and class names have been changed, use help(minesweeperPy) to see the new names
- - __version__ __title__ __author__ __licence__ __copyright__ __URL__ and __changeLogs__ added to see more info on the module
- - As well as blank cell identifiers there are now mine cell identifiers
- - preGenerate() added to quickly generate a grid using one of the four built in presets
+ - Error message names are now better to understand (uses custom Exceptions)
+ - minesweeperPy.error added
 """
 
 preGameLevels = ["easy", "medium", "hard", "expert"]
@@ -60,7 +58,7 @@ class mineGen():
         :param mineIdentifier: string, default will be "M"
         """
         if gridSizeX <= 4 or gridSizeY <= 4:
-            raise ValueError("""Error in mineGen()
+            raise minesweeperPy.error.InvalidGridSize("""Error in mineGen()
 Expected:
     - gridSizeX = 5+
         got {0}
@@ -69,7 +67,7 @@ Expected:
                        gridSizeY))
 
         if blankIdentifier is None or mineIdentifier is None:
-            raise TypeError("""Error in mineGen()
+            raise minesweeperPy.error.InvalidCellIdentifier("""Error in mineGen()
 Expected:
     - blankIdentifier = string
         got {0}
@@ -96,12 +94,12 @@ Expected:
                 }
         """
         if mineCount <= -1: # If the mine count is under 0
-            raise ValueError("""Error in generateGrid()
+            raise minesweeperPy.error.InvalidMineCount("""Error in generateGrid()
 Expected:
     - mineCount = 0+
         got {}""".format(mineCount))
         if mineCount >= (self.gridSizeY * self.gridSizeX)+1:
-            raise ValueError("""Error in generateGrid()
+            raise minesweeperPy.error.InvalidMineCount("""Error in generateGrid()
 Expected:
     - mineCount = 0 - {0}
         got {1}""".format((self.gridSizeY * self.gridSizeX),
@@ -196,7 +194,7 @@ Expected:
         got type {}""".format(type(grid))) # Raise this problem as an error
 
     if blankIdentifier is None or mineIdentifier is None: # If the blankIdentifier or mineIdentifier is set to default
-        raise TypeError("""Error in gridInfo()
+        raise minesweeperPy.error.InvalidCellIdentifier("""Error in gridInfo()
 Expected:
     - blankIdentifier = the term used for the blank cell identifier in the grid
         got {0}
@@ -248,13 +246,13 @@ def preGenerate(level=None,
     levelLower = str(level).lower()
 
     if levelLower not in preGameLevels:
-        raise TypeError("""Error in preGenerate()
+        raise minesweeperPy.error.InvalidLevel("""Error in preGenerate()
 Expected:
     - level = string of level type (easy, medium, hard, expert)
         got {}""".format(levelLower))
 
     if blankIdentifier is None or mineIdentifier is None:
-        raise TypeError("""Error in preGenerate()
+        raise minesweeperPy.error.InvalidCellIdentifier("""Error in preGenerate()
 Expected:
     - blankIdentifier = string
         got {0}
