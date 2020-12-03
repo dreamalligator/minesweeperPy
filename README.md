@@ -18,6 +18,10 @@ Version **2.0**
 * Added `config` to the generator class
 * Removed `gridInfo` function
 
+Video guide to this module: (Thanks to AK Python for making it)
+---------------------------------------------------------------
+[| A Simple Minesweeper Matrix game using python | | AK |](https://www.youtube.com/watch?v=hRIzeYnb2Gk "YouTube video demonstrating minesweeperPy")
+
 Installation:
 -------------
 
